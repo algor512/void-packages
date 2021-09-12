@@ -1,0 +1,22 @@
+pkgname=algor-st
+version=$(date -u +"%Y%m%d")
+revision=$(date -u +"%H%M")
+build_style=gnu-makefile
+make_use_env=compliant
+hostmakedepends="pkg-config"
+makedepends="fontconfig-devel libXinerama-devel libX11-devel libXft-devel git"
+depends="libXinerama fontconfig libXft ncurses"
+short_desc="Simple terminal implementation for X"
+maintainer="Alexey Gorelov <algor512@gmail.com>"
+license="MIT"
+homepage="https://st.suckless.org"
+
+do_fetch() {
+	git clone https://gitlab.com/algor512/st.git ${wrksrc}
+}
+
+post_install() {
+	vinstall st.info 644 usr/share/terminfo/s st.terminfo
+	vdoc README
+	vlicense LICENSE
+}
